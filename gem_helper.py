@@ -2,12 +2,12 @@ import tkinter as tk
 
 
 class Tower:
-    def __init__(self, root, name, requirements):
-        self.root = root  # Save reference to root
+    def __init__(self, frame, name, requirements):
+        self.frame = frame  # Save reference to root
         self.num_towers = len(requirements)
         # Set name
-        root.config(text=name)
-        # Set up amount array
+        frame.config(text=name)
+        # Set up arrays with references to objects
         self.amount = []
         self.name_labels = []
         self.amount_labels = []
@@ -16,47 +16,84 @@ class Tower:
         # Requirements
         for i in range(0, self.num_towers):
             # Req name
-            temp = tk.Label(root, width=16, anchor=tk.E, text=requirements[i])
+            temp = tk.Label(frame, width=16, anchor=tk.E, text=requirements[i])
             self.amount_labels.append(temp)  # Save reference
             temp.grid(row=i, column=0)
             # Req amount
-            temp = tk.Label(root, textvariable=self.amount[i])
+            temp = tk.Label(frame, textvariable=self.amount[i])
             self.name_labels.append(temp)  # Save reference
             temp.grid(row=i, column=1, padx=3)
-            tk.Button(root, text="+", command=lambda i=i: self.increment_amount(i)).grid(row=i, column=2)  # Increment
-            tk.Button(root, text="-", command=lambda i=i: self.decrement_amount(i)).grid(row=i, column=3,
-                                                                                         padx=1)  # Decrement
+            tk.Button(frame, width=2, text="+", command=lambda i=i: self.increment_amount(i)).grid(row=i,
+                                                                                                   column=2)  # Increment
+            tk.Button(frame, width=2, text="-", command=lambda i=i: self.decrement_amount(i)).grid(row=i, column=3,
+                                                                                                   padx=1)  # Decrement
+        # Add inc/dec all buttons
+        tk.Button(frame, text="+", width=2, command=self.increment_all).grid(row=self.num_towers, column="2")
+        tk.Button(frame, text="-", width=2, command=self.decrement_all).grid(row=self.num_towers, column="3")
         # Add to layout
-        root.grid(row=0, column=0, padx=5, pady=5)
+        frame.grid(row=0, column=0)
 
     def increment_amount(self, i):
+        """
+        Increments amount[i] amount by 1
+        """
         curr_amount = self.amount[i].get()
         new_amount = curr_amount + 1
         self.amount[i].set(new_amount)
         self.check_amount()
 
     def decrement_amount(self, i):
+        """
+        Decrements amount[i] amount by 1
+        """
         curr_amount = self.amount[i].get()
         new_amount = curr_amount - 1 if curr_amount > 1 else 0  # Don't go below 0
         self.amount[i].set(new_amount)
         self.check_amount()
 
+    def increment_all(self):
+        """
+        Increments all amounts by 1
+        """
+        for i in range(0, self.num_towers):
+            self.increment_amount(i)
+
+    def decrement_all(self):
+        """
+        Decrements all amounts by 1
+        """
+        for i in range(0, self.num_towers):
+            self.decrement_amount(i)
+
     def check_amount(self):
+        """
+        Checks status for the requirement and
+        adjusts the font color accordingly
+        """
         self.check_full()
         self.check_missing()
 
     def check_full(self):
-        color = "#00aa00"
+        """
+        Checks if all the requirements are met
+        and changes font color to green if so
+        """
+        color = "#00aa00"  # Green
         for i in range(0, self.num_towers):
             if self.amount[i].get() == 0:
-                color = "black"  # Set color to black if not all are at least 1
+                # Set color to black if not all are at least 1
+                color = "black"
         # Set all the components colors
-        self.root.configure(fg=color)
+        self.frame.configure(fg=color)
         for i in range(0, self.num_towers):
             self.name_labels[i].configure(fg=color)
             self.amount_labels[i].configure(fg=color)
 
     def check_missing(self):
+        """
+        Checks if there is only one gem missing
+        and changes that gem's font to red if so
+        """
         num_0 = 0
         for i in range(0, self.num_towers):
             if self.amount[i].get() == 0:
@@ -72,13 +109,15 @@ class Tower:
 
 
 class GemHelper:
-    def __init__(self, root):
-        root.title("Gem Helper by Mattias Ulmstedt")
-        root.resizable(0,0)
+    def __init__(self, window):
+        window.title("Gem Helper by Mattias Ulmstedt")
+        window.resizable(0, 0)
         # Create category frames
-        mandatory_frame = tk.LabelFrame(root, text="Mandatory", height=395, width=398)
+        frame_width = 415
+        frame_height = 445
+        mandatory_frame = tk.LabelFrame(window, text="Mandatory", height=frame_height, width=frame_width)
         mandatory_frame.grid_propagate(False)
-        situational_frame = tk.LabelFrame(root, text="Situational", height=395, width=398)
+        situational_frame = tk.LabelFrame(window, text="Situational", height=frame_height, width=frame_width)
         situational_frame.grid_propagate(False)
 
         # Create towers
@@ -119,26 +158,26 @@ class GemHelper:
         tower12_frame = tk.LabelFrame(situational_frame)
         Tower(tower12_frame, "Malachite", ["Chipped Aquamarine", "Chipped Opal", "Chipped Emerald"])
 
-
-
         # Add to layout
-        tower1_frame.grid(row=0, column=0, padx=10, pady=10)
-        tower2_frame.grid(row=1, column=0, padx=10, pady=10)
-        tower3_frame.grid(row=2, column=0, padx=10, pady=10)
-        tower4_frame.grid(row=0, column=1, padx=10, pady=10)
-        tower5_frame.grid(row=1, column=1, padx=10, pady=10)
-        tower6_frame.grid(row=2, column=1, padx=10, pady=10, sticky=tk.N)
-        tower7_frame.grid(row=0, column=2, padx=10, pady=10)
-        tower8_frame.grid(row=1, column=2, padx=10, pady=10)
-        tower9_frame.grid(row=2, column=2, padx=10, pady=10)
-        tower10_frame.grid(row=0, column=3, padx=10, pady=10)
-        tower11_frame.grid(row=1, column=3, padx=10, pady=10)
-        tower12_frame.grid(row=2, column=3, padx=10, pady=10)
+        tower_padx = 8
+        tower_pady = 5
+        tower1_frame.grid(row=0, column=0, padx=tower_padx, pady=tower_pady, sticky=tk.N)
+        tower2_frame.grid(row=1, column=0, padx=tower_padx, pady=tower_pady, sticky=tk.N)
+        tower3_frame.grid(row=2, column=0, padx=tower_padx, pady=tower_pady, sticky=tk.N)
+        tower4_frame.grid(row=0, column=1, padx=tower_padx, pady=tower_pady, sticky=tk.N)
+        tower5_frame.grid(row=1, column=1, padx=tower_padx, pady=tower_pady, sticky=tk.N)
+        tower6_frame.grid(row=2, column=1, padx=tower_padx, pady=tower_pady, sticky=tk.N)
+        tower7_frame.grid(row=0, column=2, padx=tower_padx, pady=tower_pady, sticky=tk.N)
+        tower8_frame.grid(row=1, column=2, padx=tower_padx, pady=tower_pady, sticky=tk.N)
+        tower9_frame.grid(row=2, column=2, padx=tower_padx, pady=tower_pady, sticky=tk.N)
+        tower10_frame.grid(row=0, column=3, padx=tower_padx, pady=tower_pady, sticky=tk.N)
+        tower11_frame.grid(row=1, column=3, padx=tower_padx, pady=tower_pady, sticky=tk.N)
+        tower12_frame.grid(row=2, column=3, padx=tower_padx, pady=tower_pady, sticky=tk.N)
 
-        mandatory_frame.grid(row=0,column=0, padx=3, pady=3)
-        situational_frame.grid(row=0,column=1, padx=3, pady=3)
+        mandatory_frame.grid(row=0, column=0, padx=3, pady=3)
+        situational_frame.grid(row=0, column=1, padx=3, pady=3)
+
 
 root = tk.Tk()
-
 GemHelper = GemHelper(root)
 root.mainloop()
