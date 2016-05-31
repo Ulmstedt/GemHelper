@@ -7,12 +7,12 @@ class Tower:
         self.num_towers = len(requirements)
         # Set name
         frame.config(text=name)
-        # Set up arrays with references to objects
         self.amount = []
-        self.name_labels = []
-        self.amount_labels = []
         for i in range(0, self.num_towers):
             self.amount.append(tk.IntVar())
+        # Set up arrays with references to objects
+        self.name_labels = []
+        self.amount_labels = []
         # Requirements
         for i in range(0, self.num_towers):
             # Req name
@@ -121,3 +121,9 @@ class Tower:
                 if self.amount[i].get() == 0:
                     self.name_labels[i].configure(fg=color)
                     self.amount_labels[i].configure(fg=color)
+
+    def reset(self):
+        self.set_font_colors("black")
+        self.acquired.set(0)
+        for iv in self.amount:
+            iv.set(0)

@@ -14,43 +14,45 @@ class GemHelper:
         situational_frame = tk.LabelFrame(window, text="Situational", height=FRAME_HEIGHT, width=FRAME_WIDTH)
         situational_frame.grid_propagate(False)
 
+        self.tower_list = []
+
         # Create towers
         tower1_frame = tk.LabelFrame(mandatory_frame)
-        Tower(tower1_frame, "Gold", ["Flawed Diamond", "Flawless Amethyst", "Perfect Amethyst"])
+        self.tower_list.append(Tower(tower1_frame, "Gold", ["Flawed Diamond", "Flawless Amethyst", "Perfect Amethyst"]))
 
         tower2_frame = tk.LabelFrame(mandatory_frame)
-        Tower(tower2_frame, "Black Opal", ["Aquamarine", "Flawless Diamond", "Perfect Opal"])
+        self.tower_list.append(Tower(tower2_frame, "Black Opal", ["Aquamarine", "Flawless Diamond", "Perfect Opal"]))
 
         tower3_frame = tk.LabelFrame(mandatory_frame)
-        Tower(tower3_frame, "Paraiba Tourmaline",
-              ["Flawed Aquamarine", "Flawed Emerald", "Flawless Opal", "Perfect Aquamarine"])
+        self.tower_list.append(Tower(tower3_frame, "Paraiba Tourmaline",
+              ["Flawed Aquamarine", "Flawed Emerald", "Flawless Opal", "Perfect Aquamarine"]))
 
         tower4_frame = tk.LabelFrame(mandatory_frame)
-        Tower(tower4_frame, "Jade", ["Flawed Sapphire", "Opal", "Flawless Emerald"])
+        self.tower_list.append(Tower(tower4_frame, "Jade", ["Flawed Sapphire", "Opal", "Flawless Emerald"]))
 
         tower5_frame = tk.LabelFrame(mandatory_frame)
-        Tower(tower5_frame, "Dark Emerald", ["Flawed Topaz", "Flawless Sapphire", "Perfect Emerald"])
+        self.tower_list.append(Tower(tower5_frame, "Dark Emerald", ["Flawed Topaz", "Flawless Sapphire", "Perfect Emerald"]))
 
         tower6_frame = tk.LabelFrame(mandatory_frame)
-        Tower(tower6_frame, "Pink Diamond", ["Topaz", "Diamond", "Perfect Diamond"])
+        self.tower_list.append(Tower(tower6_frame, "Pink Diamond", ["Topaz", "Diamond", "Perfect Diamond"]))
 
         tower7_frame = tk.LabelFrame(situational_frame)
-        Tower(tower7_frame, "Red Crystal", ["Flawed Amethyst", "Emerald", "Ruby"])
+        self.tower_list.append(Tower(tower7_frame, "Red Crystal", ["Flawed Amethyst", "Emerald", "Ruby"]))
 
         tower8_frame = tk.LabelFrame(situational_frame)
-        Tower(tower8_frame, "Uranium", ["Flawed Opal", "Sapphire", "Perfect Topaz"])
+        self.tower_list.append(Tower(tower8_frame, "Uranium", ["Flawed Opal", "Sapphire", "Perfect Topaz"]))
 
         tower9_frame = tk.LabelFrame(situational_frame)
-        Tower(tower9_frame, "Yellow Sapphire", ["Flawless Ruby", "Flawless Topaz", "Perfect Sapphire"])
+        self.tower_list.append(Tower(tower9_frame, "Yellow Sapphire", ["Flawless Ruby", "Flawless Topaz", "Perfect Sapphire"]))
 
         tower10_frame = tk.LabelFrame(situational_frame)
-        Tower(tower10_frame, "Blood Stone", ["Amethyst", "Flawless Aquamarine", "Perfect Ruby"])
+        self.tower_list.append(Tower(tower10_frame, "Blood Stone", ["Amethyst", "Flawless Aquamarine", "Perfect Ruby"]))
 
         tower11_frame = tk.LabelFrame(situational_frame)
-        Tower(tower11_frame, "Star Ruby", ["Chipped Ruby", "Flawed Ruby", "Chipped Amethyst"])
+        self.tower_list.append(Tower(tower11_frame, "Star Ruby", ["Chipped Ruby", "Flawed Ruby", "Chipped Amethyst"]))
 
         tower12_frame = tk.LabelFrame(situational_frame)
-        Tower(tower12_frame, "Malachite", ["Chipped Aquamarine", "Chipped Opal", "Chipped Emerald"])
+        self.tower_list.append(Tower(tower12_frame, "Malachite", ["Chipped Aquamarine", "Chipped Opal", "Chipped Emerald"]))
 
         # Add to layout
         TOWER_PADX = 8
@@ -68,5 +70,12 @@ class GemHelper:
         tower11_frame.grid(row=1, column=3, padx=TOWER_PADX, pady=TOWER_PADY, sticky=tk.N)
         tower12_frame.grid(row=2, column=3, padx=TOWER_PADX, pady=TOWER_PADY, sticky=tk.N)
 
+        # Clear button
+        tk.Button(situational_frame, text="Clear all", command=self.reset_all).grid(row=3, column=3, sticky=tk.E)
+
         mandatory_frame.grid(row=0, column=0, padx=3, pady=3)
         situational_frame.grid(row=0, column=1, padx=3, pady=3)
+
+    def reset_all(self):
+        for t in self.tower_list:
+            t.reset()
