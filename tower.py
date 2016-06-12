@@ -87,7 +87,7 @@ class Tower:
         """
         # Check if tower is acquired
         if self.acquired.get():
-            self.set_font_colors("#00aa00")
+            self.set_font_colors("#bbbbbb")
         # Check if all the requirements are met
         elif self.check_full():
             self.set_font_colors("orange")
