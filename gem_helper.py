@@ -25,13 +25,14 @@ class GemHelper:
 
         tower3_frame = tk.LabelFrame(mandatory_frame)
         self.tower_list.append(Tower(tower3_frame, "Paraiba Tourmaline",
-              ["Flawed Aquamarine", "Flawed Emerald", "Flawless Opal", "Perfect Aquamarine"]))
+                                     ["Flawed Aquamarine", "Flawed Emerald", "Flawless Opal", "Perfect Aquamarine"]))
 
         tower4_frame = tk.LabelFrame(mandatory_frame)
         self.tower_list.append(Tower(tower4_frame, "Jade", ["Flawed Sapphire", "Opal", "Flawless Emerald"]))
 
         tower5_frame = tk.LabelFrame(mandatory_frame)
-        self.tower_list.append(Tower(tower5_frame, "Dark Emerald", ["Flawed Topaz", "Flawless Sapphire", "Perfect Emerald"]))
+        self.tower_list.append(
+            Tower(tower5_frame, "Dark Emerald", ["Flawed Topaz", "Flawless Sapphire", "Perfect Emerald"]))
 
         tower6_frame = tk.LabelFrame(mandatory_frame)
         self.tower_list.append(Tower(tower6_frame, "Pink Diamond", ["Topaz", "Diamond", "Perfect Diamond"]))
@@ -43,7 +44,8 @@ class GemHelper:
         self.tower_list.append(Tower(tower8_frame, "Uranium", ["Flawed Opal", "Sapphire", "Perfect Topaz"]))
 
         tower9_frame = tk.LabelFrame(situational_frame)
-        self.tower_list.append(Tower(tower9_frame, "Yellow Sapphire", ["Flawless Ruby", "Flawless Topaz", "Perfect Sapphire"]))
+        self.tower_list.append(
+            Tower(tower9_frame, "Yellow Sapphire", ["Flawless Ruby", "Flawless Topaz", "Perfect Sapphire"]))
 
         tower10_frame = tk.LabelFrame(situational_frame)
         self.tower_list.append(Tower(tower10_frame, "Blood Stone", ["Amethyst", "Flawless Aquamarine", "Perfect Ruby"]))
@@ -52,7 +54,8 @@ class GemHelper:
         self.tower_list.append(Tower(tower11_frame, "Star Ruby", ["Chipped Ruby", "Flawed Ruby", "Chipped Amethyst"]))
 
         tower12_frame = tk.LabelFrame(situational_frame)
-        self.tower_list.append(Tower(tower12_frame, "Malachite", ["Chipped Aquamarine", "Chipped Opal", "Chipped Emerald"]))
+        self.tower_list.append(
+            Tower(tower12_frame, "Malachite", ["Chipped Aquamarine", "Chipped Opal", "Chipped Emerald"]))
 
         # Add to layout
         TOWER_PADX = 8
